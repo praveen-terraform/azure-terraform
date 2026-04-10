@@ -1,7 +1,7 @@
 subscription_id = "4152cb71-c857-4ded-a8ff-c5723e687cfa"
 
 environment = "dev"
-prefix      = "tf"
+prefix      = "tfdev"
 name_suffix = "01"
 
 location = "East US"
