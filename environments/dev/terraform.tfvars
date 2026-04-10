@@ -1,10 +1,10 @@
-subscription_id = "00000000-0000-0000-0000-000000000000"
+subscription_id = "4152cb71-c857-4ded-a8ff-c5723e687cfa"
 
 environment = "dev"
-prefix      = "cx"
+prefix      = "tf"
 name_suffix = "01"
 
-location = "Central India"
+location = "East US"
 
 tags = {
   Product   = "terraform-assignment"
@@ -21,7 +21,7 @@ dns_servers = []
 enable_ddos             = false
 ddos_protection_plan_id = null
 
-vm_size                  = "Standard_B1s"
+vm_size                  = "Standard_B2s"
 admin_username           = "azureuser"
 public_key_path          = "~/.ssh/id_rsa.pub"
 os_disk_size             = 30
