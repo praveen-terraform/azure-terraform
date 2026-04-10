@@ -60,7 +60,7 @@ resource "azurerm_linux_virtual_machine" "linuxvm" {
     version   = "latest"
   }
 
-  encryption_at_host_enabled = true
+  
   zone                       = var.zone
   tags                       = var.tags
 
