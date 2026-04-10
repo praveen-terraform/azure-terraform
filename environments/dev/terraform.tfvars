@@ -12,8 +12,8 @@ tags = {
   managedby = "terraform"
 }
 
-vnet_cidr      = ["10.10.0.0/16"]
-subnet_vm_cidr = ["10.10.1.0/24"]
+vnet_cidr       = ["10.10.0.0/16"]
+subnet_vm_cidr  = ["10.10.1.0/24"]
 subnet_app_cidr = ["10.10.2.0/24"]
 
 dns_servers = []

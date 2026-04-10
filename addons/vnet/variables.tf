@@ -44,9 +44,9 @@ variable "tags" {
 variable "subnets" {
   description = "Map of subnet definitions"
   type = map(object({
-    subnet_address_prefix           = list(string)
-    default_outbound_access_enabled = optional(bool, false)
-    service_endpoints               = optional(list(string), [])
+    subnet_address_prefix                         = list(string)
+    default_outbound_access_enabled               = optional(bool, false)
+    service_endpoints                             = optional(list(string), [])
     private_endpoint_network_policies_enabled     = optional(bool, true)
     private_link_service_network_policies_enabled = optional(bool, true)
 

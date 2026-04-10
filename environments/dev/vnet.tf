@@ -1,14 +1,14 @@
 module "vnet" {
   source = "../../addons/vnet"
 
-  vnet_name                  = local.vnet_name
-  location                   = azurerm_resource_group.rg.location
-  resource_group_name        = azurerm_resource_group.rg.name
-  vnet_cidr                  = var.vnet_cidr
-  dns_servers                = var.dns_servers
-  enable_ddos                = var.enable_ddos
-  ddos_protection_plan_id    = var.ddos_protection_plan_id
-  tags                       = local.tags
+  vnet_name               = local.vnet_name
+  location                = azurerm_resource_group.rg.location
+  resource_group_name     = azurerm_resource_group.rg.name
+  vnet_cidr               = var.vnet_cidr
+  dns_servers             = var.dns_servers
+  enable_ddos             = var.enable_ddos
+  ddos_protection_plan_id = var.ddos_protection_plan_id
+  tags                    = local.tags
 
   subnets = {
     vm-subnet = {

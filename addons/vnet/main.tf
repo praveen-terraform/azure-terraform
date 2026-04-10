@@ -45,7 +45,7 @@ resource "azurerm_subnet" "subnet" {
   }
 
   lifecycle {
-    ignore_changes = [delegation]
+    ignore_changes  = [delegation]
     prevent_destroy = true
   }
 }
