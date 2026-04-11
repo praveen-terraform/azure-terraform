@@ -37,7 +37,7 @@ jobs:
         run: terraform init -reconfigure
 
       - name: Terraform Format Check
-        run: terraform fmt -recursive
+        run: terraform fmt -recursive -check
 
       - name: Terraform Validate
         run: terraform validate
