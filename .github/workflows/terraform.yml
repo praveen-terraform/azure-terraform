@@ -11,6 +11,9 @@ permissions:
   id-token: write
   contents: read
 
+env:
+  ENABLE_QA: 'false'
+
 jobs:
   validate-dev:
     name: Validate Dev
@@ -40,7 +43,7 @@ jobs:
         run: terraform init -reconfigure
 
       - name: Terraform Format Check
-        run: terraform fmt -recursive
+        run: terraform fmt -recursive -check
 
       - name: Terraform Validate
         run: terraform validate
@@ -77,13 +80,14 @@ jobs:
       - name: Terraform Init
         run: terraform init -reconfigure
 
-      - name: Terraform Apply
+      - name: Terraform Apply (Skipped for POC)
         run: |
-        # terraform apply -auto-approve
+          # terraform apply -auto-approve
+          echo "Terraform apply skipped for POC to avoid Azure cost"
 
   validate-qa:
     name: Validate QA
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' && env.ENABLE_QA == 'true'
     needs: deploy-dev
     runs-on: ubuntu-latest
     environment: qa
@@ -121,7 +125,7 @@ jobs:
 
   deploy-qa:
     name: Deploy QA
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' && env.ENABLE_QA == 'true'
     needs: validate-qa
     runs-on: ubuntu-latest
     environment: qa
@@ -148,5 +152,7 @@ jobs:
       - name: Terraform Init
         run: terraform init -reconfigure
 
-      - name: Terraform Apply
-        run: terraform apply -auto-approve
+      - name: Terraform Apply (Skipped for POC)
+        run: |
+          # terraform apply -auto-approve
+          echo "Terraform apply skipped for POC to avoid Azure cost"
