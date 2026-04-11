@@ -11,9 +11,6 @@ permissions:
   id-token: write
   contents: read
 
-env:
-  ENABLE_QA: 'false'
-
 jobs:
   validate-dev:
     name: Validate Dev
@@ -87,7 +84,7 @@ jobs:
 
   validate-qa:
     name: Validate QA
-    if: github.event_name == 'push' && env.ENABLE_QA == 'true'
+    if: github.event_name == 'push' && vars.ENABLE_QA == 'true'
     needs: deploy-dev
     runs-on: ubuntu-latest
     environment: qa
@@ -125,7 +122,7 @@ jobs:
 
   deploy-qa:
     name: Deploy QA
-    if: github.event_name == 'push' && env.ENABLE_QA == 'true'
+    if: github.event_name == 'push' && vars.ENABLE_QA == 'true'
     needs: validate-qa
     runs-on: ubuntu-latest
     environment: qa
