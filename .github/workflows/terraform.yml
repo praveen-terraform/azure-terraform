@@ -78,7 +78,8 @@ jobs:
         run: terraform init -reconfigure
 
       - name: Terraform Apply
-        run: terraform apply -auto-approve
+        run: |
+        # terraform apply -auto-approve
 
   validate-qa:
     name: Validate QA
