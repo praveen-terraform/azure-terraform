@@ -21,7 +21,7 @@ dns_servers = []
 enable_ddos             = false
 ddos_protection_plan_id = null
 
-vm_size                  = "Standard_B2s"
+vm_size                  = "Standard_FX2ms_v2"
 admin_username           = "azureuser"
 #public_key_path          = "~/.ssh/id_rsa.pub"
 os_disk_size             = 30
