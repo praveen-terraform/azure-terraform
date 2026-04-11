@@ -16,6 +16,9 @@ jobs:
     name: Validate Dev
     runs-on: ubuntu-latest
     environment: dev
+    env:
+      TF_INPUT: false
+      TF_VAR_public_key: ${{ secrets.TF_VAR_PUBLIC_KEY }}
     defaults:
       run:
         working-directory: ${{ vars.TF_WORKING_DIR }}
@@ -37,7 +40,7 @@ jobs:
         run: terraform init -reconfigure
 
       - name: Terraform Format Check
-        run: terraform fmt -recursive
+        run: terraform fmt -recursive -check
 
       - name: Terraform Validate
         run: terraform validate
@@ -51,6 +54,9 @@ jobs:
     needs: validate-dev
     runs-on: ubuntu-latest
     environment: dev
+    env:
+      TF_INPUT: false
+      TF_VAR_public_key: ${{ secrets.TF_VAR_PUBLIC_KEY }}
     defaults:
       run:
         working-directory: ${{ vars.TF_WORKING_DIR }}
@@ -80,6 +86,9 @@ jobs:
     needs: deploy-dev
     runs-on: ubuntu-latest
     environment: qa
+    env:
+      TF_INPUT: false
+      TF_VAR_public_key: ${{ secrets.TF_VAR_PUBLIC_KEY }}
     defaults:
       run:
         working-directory: ${{ vars.TF_WORKING_DIR }}
@@ -115,6 +124,9 @@ jobs:
     needs: validate-qa
     runs-on: ubuntu-latest
     environment: qa
+    env:
+      TF_INPUT: false
+      TF_VAR_public_key: ${{ secrets.TF_VAR_PUBLIC_KEY }}
     defaults:
       run:
         working-directory: ${{ vars.TF_WORKING_DIR }}
