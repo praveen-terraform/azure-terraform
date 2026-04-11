@@ -70,8 +70,8 @@ variable "admin_username" {
   type        = string
 }
 
-variable "public_key_path" {
-  description = "Path to public SSH key"
+variable "public_key" {
+  description = "SSH public key content"
   type        = string
 }
 
