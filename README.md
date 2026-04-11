@@ -1,148 +1,76 @@
-Azure Terraform Multi-Environment Setup
-📖 Overview
+**Azure Terraform Multi-Environment Setup**
+
+**Overview**
 
 This project demonstrates a reusable Terraform module design for provisioning Azure infrastructure along with a GitHub Actions CI/CD pipeline.
 
 The solution includes:
 
 Reusable VNet module
+
 Environment-based structure (dev)
+
 VM deployment using module outputs
+
 Remote backend configuration
+
 GitHub Actions pipeline with validation and deployment stages
-🏗️ Architecture
+
+**Architecture**
+
 Azure Virtual Network (VNet)
+
 Subnets with NSG rules
+
 Virtual Machine
+
 Storage Account (for backend/state)
-GitHub Actions pipeline for CI/CD
-📂 Repository Structure
-.
-├── addons/
-│   ├── vnet/        # Reusable VNet module
-│   └── vm/          # VM module
-├── env/
-│   └── dev/         # Environment-specific configuration
-├── .github/
-│   └── workflows/   # CI/CD pipeline
-⚙️ Prerequisites
-Azure Subscription
-Terraform installed
-Azure CLI installed
-GitHub repository with Actions enabled
-🚀 How to Use
-1. Clone the repository
-git clone https://github.com/praveen-terraform/azure-terraform.git
-cd azure-terraform
-2. Configure variables
 
-Update values in:
-
-env/dev/terraform.tfvars
-3. Initialize Terraform
-cd env/dev
-terraform init
-4. Validate and plan
-terraform validate
-terraform plan
-🔁 CI/CD Pipeline (GitHub Actions)
+**GitHub Actions pipeline for CI/CD**
 
 The pipeline includes:
 
 Stage 1: Validate
+
 Terraform Init
-Terraform Format Check
-Terraform Validate
+ Terraform Format Check
+ 
+ Terraform Validate
+
 Terraform Plan
+
 Stage 2: Deploy (POC)
+
 Deployment stage included
+
 terraform apply is intentionally skipped to avoid Azure cost
-🔐 Authentication
+
+**Authentication**
 
 Authentication is handled using:
 
-Azure App Registration (Service Principal)
-GitHub OIDC (no secrets required for credentials)
-📘 Design Decisions & Implementation Details
-1. Outputs and their purpose
+Azure App Registration, 
+GitHub OIDC
 
-I exposed outputs such as Resource Group name, VNet ID, subnet IDs, and storage account name, as these are commonly consumed by downstream modules. This ensures the module supports integration with other infrastructure components.
+**Implementation Details**
 
-2. Module usability
-
-To make the module easy to consume, I documented required inputs, optional inputs, input structure, example usage, and outputs. This allows users to use the module without understanding internal implementation details.
-
-3. Documentation automation
-
-Documentation is automated using terraform-docs, which generates README sections from variables and outputs. This ensures documentation remains consistent with the code.
-
-4. Module testing
-
-The module is tested by consuming it in the dev environment and running:
-
-terraform validate
-terraform plan
-
-These checks are also integrated into the GitHub pipeline for continuous validation.
-
-5. Environment design (Resource Groups vs Subscriptions)
-
-For this POC, Resource Groups are used to separate environments due to simplicity and cost efficiency. For production systems, separate subscriptions can be used for stronger isolation and governance.
-
-6. Naming and tagging strategy
-
-Naming convention:
-
-prefix-environment-region-resource
-
-Example:
-
-tf-dev-eastus-vnet
-
-Tags used:
-
-Environment
-Region
-ManagedBy
-7. Flexibility and reusability
-
-To avoid repetition, I used:
-
-Variables
-terraform.tfvars
-locals
-
-This allows reuse of the same code across environments with minimal changes.
-
-8. Tagging and enforcement
-
-Standard tags are defined in locals and merged with user input.
-Enforcement can be strengthened using Azure Policy.
-
-9. Useful outputs
-
-Outputs such as VNet ID, subnet IDs, and VM details are exposed to support downstream integrations and operational visibility.
-
-10. Release lifecycle
-
-The GitHub Actions pipeline follows a structured lifecycle:
-
-Validate Terraform configuration
-Generate execution plan
-Deploy infrastructure (skipped in POC)
-
-This design supports scaling to multiple environments like QA and Production.
-
-⚠️ Note
-
-Deployment steps are included but skipped in this POC to avoid unnecessary Azure costs. They can be enabled by uncommenting the terraform apply step in the pipeline.
-
-🏆 Conclusion
-
-This project demonstrates:
-
-Reusable Terraform module design
-Environment-based infrastructure setup
-CI/CD pipeline using GitHub Actions
-Best practices for naming, tagging, and validation# azure-terraform
-To test azure infra provisioning using terraform 
+1.	What outputs you would add and why? 
+I exposed outputs in this POC that are commonly consumed by other modules, especially Resource_Group ,subnet IDs, VNet ID and Storage account name because reusable modules should not only create resources but also make integration with higher-level infrastructure easier.
+2.	What information would someone need in order to use this module?
+To make the module easy to consume, I would document the required inputs, optional inputs, input object structure, example usage, and outputs. This helps others adopt the module without reading all the internal code.
+3.	Bonus: how would I automate documentation? - 
+For documentation automation, I would use terraform-docs. It reads variables and outputs from the module and generates a README section automatically, which keeps documentation consistent with the code.
+4.	Super extra points if your module is tested - 
+Yes. I tested it by consuming the module from the dev environment and running Terraform validation and planning successfully. I also included those checks in the GitHub pipeline so the module is continuously validated.
+5.	Argument why would you use Resource Groups or Subscriptions for multiple environments. - 
+When designing multiple environments in Azure (like dev, test, prod), choosing between Resource Groups (RGs) and Subscriptions depends on isolation, governance, cost, and scale.
+6.	Name and label resources to make environment and region clear - 
+I use a naming convention like prefix-environment-region-resource (e.g., tf-dev-eastus-vnet) and apply tags such as Environment, Region, and ManagedBy for easy identification and tracking.
+7.	Avoid repeating values—how can you make this flexible? -  
+I use variables, terraform.tfvars, and locals to centralize reusable values, so only environment-specific inputs change while the core code remains reusable.
+8.	How might you label resources for better tracking? How would you enforce this? -  
+I define standard tags like Environment, Owner, and Project in locals and enforce them by merging with input tags; this can be further enforced using Azure Policy.
+9.	What outputs might be useful and why? -  
+I exposed outputs like VNet ID, subnet IDs, and VM details, as they are commonly required by downstream modules and for operational visibility.
+10.	Bonus: GitHub pipeline and release lifecycle -  
+I implemented a GitHub Actions pipeline with validation and deployment stages, where code is validated first and then deployed with optional approvals, enabling a scalable multi-environment release flow.
