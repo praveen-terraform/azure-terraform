@@ -4,7 +4,7 @@ environment = "dev"
 prefix      = "tfdev"
 name_suffix = "01"
 
-location = "East US"
+location = "Central India"
 
 tags = {
   Product   = "terraform-assignment"
@@ -21,7 +21,7 @@ dns_servers = []
 enable_ddos             = false
 ddos_protection_plan_id = null
 
-vm_size                  = "Standard_FX2ms_v2"
+vm_size                  = "Standard_B2s"
 admin_username           = "azureuser"
 #public_key_path          = "~/.ssh/id_rsa.pub"
 os_disk_size             = 30
