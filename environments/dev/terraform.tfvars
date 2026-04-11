@@ -4,7 +4,7 @@ environment = "dev"
 prefix      = "tfdev"
 name_suffix = "01"
 
-location = "Central India"
+location = "East US"
 
 tags = {
   Product   = "terraform-assignment"
