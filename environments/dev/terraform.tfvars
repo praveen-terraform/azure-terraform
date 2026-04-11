@@ -23,7 +23,7 @@ ddos_protection_plan_id = null
 
 vm_size                  = "Standard_B2s"
 admin_username           = "azureuser"
-public_key_path          = "~/.ssh/id_rsa.pub"
+#public_key_path          = "~/.ssh/id_rsa.pub"
 os_disk_size             = 30
 enable_security_features = false
 availability_zone        = "1"
