@@ -4,7 +4,9 @@ on:
   pull_request:
     branches: [ main ]
   push:
-    branches: [ main ]
+    branches:
+      - main
+      - feature/env-fix
   workflow_dispatch:
 
 permissions:
@@ -77,13 +79,14 @@ jobs:
       - name: Terraform Init
         run: terraform init -reconfigure
 
-      - name: Terraform Apply
+      - name: Terraform Apply (Skipped for POC)
         run: |
-        # terraform apply -auto-approve
+          # terraform apply -auto-approve
+          echo "Terraform apply skipped for POC to avoid Azure cost"
 
   validate-qa:
     name: Validate QA
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' && vars.ENABLE_QA == 'true'
     needs: deploy-dev
     runs-on: ubuntu-latest
     environment: qa
@@ -121,7 +124,7 @@ jobs:
 
   deploy-qa:
     name: Deploy QA
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' && vars.ENABLE_QA == 'true'
     needs: validate-qa
     runs-on: ubuntu-latest
     environment: qa
@@ -148,5 +151,7 @@ jobs:
       - name: Terraform Init
         run: terraform init -reconfigure
 
-      - name: Terraform Apply
-        run: terraform apply -auto-approve
+      - name: Terraform Apply (Skipped for POC)
+        run: |
+          # terraform apply -auto-approve
+          echo "Terraform apply skipped for POC to avoid Azure cost"
