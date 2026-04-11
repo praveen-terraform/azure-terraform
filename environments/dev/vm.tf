@@ -7,7 +7,7 @@ module "vm" {
   subnet_id                = module.vnet.subnet_ids["vm-subnet"]
   vm_size                  = var.vm_size
   admin_username           = var.admin_username
-  public_key_path          = var.public_key_path
+  public_key               = var.public_key
   os_disk_size             = var.os_disk_size
   enable_security_features = var.enable_security_features
   zone                     = var.availability_zone
